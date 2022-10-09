@@ -1,0 +1,14 @@
+latex-cjk-japanese-wadalab for Debian
+-------------------------------------
+
+This package contains the Wadalab PS and TFM fonts that are used
+by the CJK package for LaTeX.
+The gsfonts-wadalab-* packages, although built from the same
+upstream packages, are incompatible with CJK.  CJK provides its
+own mechanism and fixes for the Wadalab fonts.
+
+I have repackaged the original source package because the fonts are
+packed in several tarballs and apart from the fonts, I only need
+wftodm.c.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@edpnet.be>, Sat,  7 Oct 2006 00:00:49 +0200

@@ -1,0 +1,46 @@
+From: Werner Lemberg (author of the CJK macro for LaTeX)
+Subject: enable partial font downloading
+  - It also contains a fix to set just one directory as argument instead
+    of two, without exiting with a 0300 code.
+  - And last but not least it fixes a segfault on Debian AMD64:
+    it needs <time.h> instead of <sys/time.h>.
+
+--- latex-cjk-japanese-wadalab-0.20050817.orig/wftodm.c	2005-08-14 22:33:23.000000000 +0900
++++ latex-cjk-japanese-wadalab-0.20050817/wftodm.c	2012-03-23 18:21:26.000000000 +0900
+@@ -1,6 +1,8 @@
+ #include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
+ #include <sys/types.h>
+-#include <sys/time.h>
++#include <time.h>
+ char *charstrs[34][256];
+ int charlens[34][256];
+ char *version_str="001.001";
+@@ -157,6 +159,7 @@
+       output_afm(i);
+     }
+   }
++return 0;
+ }
+ output_afm(file)
+ {
+@@ -209,14 +212,13 @@
+   fprintf(ofp,"/UnderlineThickness 0 def\n");
+   fprintf(ofp,"end readonly def\n");
+   fprintf(ofp,"/FontName /%s def\n",fontname);
+-  fprintf(ofp,"/DmEncoding [\n");
++  fprintf(ofp,"/Encoding 256 array\n");
++  fprintf(ofp,"0 1 255 {1 index exch /.notdef put} for\n");
+   for(i=0;i<16;i++){
+     for(j=0;j<16;j++)
+-      fprintf(ofp," /c%02X",i*16+j);
+-    putc('\n',ofp);
++      fprintf(ofp,"dup %d /c%02X put\n",i*16+j,i*16+j);
+   }
+-  fprintf(ofp,"] readonly def\n");
+-  fprintf(ofp,"/Encoding DmEncoding def\n");
++  fprintf(ofp,"readonly def\n");
+   fprintf(ofp,"/PaintType 0 def\n");
+   fprintf(ofp,"/FontType 1 def\n");
+   fprintf(ofp,"/FontMatrix [.001 0 0 .001 0 -0.16] readonly def\n");

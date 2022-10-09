@@ -1,0 +1,2 @@
+rm_conffile /etc/texmf/updmap.d/20latex-cjk-japanese-wadalab.cfg 0.20050817-15
+rm_conffile /etc/texmf/updmap.d/10latex-cjk-japanese-wadalab.cfg 0.20050817-13

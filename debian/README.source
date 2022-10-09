@@ -1,0 +1,12 @@
+latex-cjk-japanese-wadalab for Debian
+-------------------------------------
+
+The source tarball has been repackaged.  The top directory contains
+all .tar.gz font packages found on
+https://www.ctan.org/tex-archive/fonts/wadalab ,
+as well as wftodm.c from the CJK package.
+
+Most files from debian/ come from CJK, which can be downloaded at
+http://cjk.ffii.org/ .
+
+ -- Danai SAE-HAN (韓達耐) <danai@debian.org>, Sun, 26 Jul 2015 00:23:27 +0800

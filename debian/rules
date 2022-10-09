@@ -1,0 +1,133 @@
+#!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+
+SHELL = /bin/sh
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+#CFLAGS = -Wall -g -O2
+
+wftodm = ./wftodm
+namestems = dg dm mc mr mc2 mr2
+dg_dirs = wadalab-sym/jis*.ps wadalab-gothic-0-13/goth-*.ps
+dg_jis = jis0208
+dm_dirs = wadalab-sym/jis*.ps wadalab-mincho-0-12/min-*.ps
+dm_jis = jis0208
+mc_dirs = wadalab-sym/jis*.ps wadalab-mincho-0-8/min-*.ps
+mc_jis = jis0208
+mr_dirs = wadalab-sym/jis*.ps wadalab-maru-0-8/maru-*.ps
+mr_jis = jis0208
+mc2_dirs = wadalab-mincho-1-8/min*.ps
+mc2_jis = jis0212
+mr2_dirs = wadalab-maru-1-8/maru*.ps
+mr2_jis = jis0212
+
+dirs = $($(abbrev)_dirs)
+jis = $($(abbrev)_jis)
+
+wftodm_namestems = $(addprefix wftodm.,$(namestems))
+fixwada_namestems = $(addprefix fixwada.,$(namestems))
+
+ERR = cat log && echo "Errare humanum! Please have a look at build/log." && exit 1
+
+wftodm: $(wftodm_namestems)
+$(wftodm_namestems): abbrev = $(patsubst wftodm.%,%,$@)
+$(wftodm_namestems): unpack
+	@echo Create .afm and .pfa fonts from $(abbrev).
+	@cd build &&\
+	  if ! $(wftodm) -FontBase $(abbrev) $(dirs) ; then \
+	    echo "$(wftodm) -FontBase $(abbrev) $(dirs)" failed miserably. ; \
+	    exit 1 ; fi
+	@echo
+
+build: build-arch build-indep
+build-arch: build-stamp 
+build-indep: build-stamp
+
+build-stamp: wftodm makefont fixwada makeuniwada
+	touch build-stamp
+
+unpack: unpack-stamp
+
+unpack-stamp:
+	dh_testdir
+
+	mkdir build
+	cc -Wall -g -O2 -o build/wftodm wftodm.c
+
+	@for i in ./*.tar.gz; do ( cd build && echo "Unpacking $$i." && tar xzf ../$$i ); done
+
+	cp debian/latex-cjk/fixwada2.pl build/
+	cp debian/latex-cjk/makeuniwada.pl build/
+	cp debian/latex-cjk/DNP.sfd build/
+	cp debian/latex-cjk/makefont build/
+	cp debian/JIS02*.TXT build/
+
+	@echo
+	touch unpack-stamp
+
+makefont: unpack
+	@echo Converting PFA to PFB and AFM to TFM.
+	@cd build && sh makefont > log 2>&1 || ( $(ERR) )
+	@echo
+
+fixwada: $(fixwada_namestems)
+$(fixwada_namestems): abbrev = $(patsubst fixwada.%,%,$@)
+$(fixwada_namestems): unpack
+	@echo "Correct the glyph names of $(abbrev)."
+	@cd build && \
+	  perl fixwada2.pl $(abbrev)j $(jis) >> log 2>&1 || \
+	  ( $(ERR) )
+	@echo
+
+makeuniwada: unpack
+	@echo "Create virtual fonts for Unicode input encoding."
+	@cd build && \
+	  perl makeuniwada.pl dgj udgj >> log 2>&1 || \
+	  ( $(ERR) ) && \
+	  perl makeuniwada.pl mrj mr2j umrj >> log 2>&1 || \
+	  ( $(ERR) ) && \
+	  perl makeuniwada.pl dmj mc2j udmj >> log 2>&1 || \
+	  ( $(ERR) ) && \
+	  perl makeuniwada.pl mcj mc2j umcj >> log 2>&1 || \
+	  ( $(ERR) )
+	@echo
+
+clean:
+	dh_testdir wadalab-sym.7.tar.gz wftodm.c debian/JIS0208.TXT
+	dh_testroot
+	rm -rf build
+	rm -f build-stamp unpack-stamp
+	dh_clean
+
+install:
+	dh_testdir
+	dh_testroot
+#	dh_prep
+	dh_installdirs
+
+
+# Build architecture-independent files here.
+binary-indep:
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs 
+	dh_installdocs
+	dh_install
+	dh_installtex --flavor=map:config_for_all_maps map=Map,wadalab.map
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-dependent files here.
+# "wftodm" doesn't need to be installed, so there's nothing to do here.
+binary-arch: install
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary install wftodm fixwada makefont

@@ -1,0 +1,34 @@
+From: <danai.sae-han@edpnet.be>
+Subject: Add -f to the mv and rm commands
+
+--- ./debian/makefont.orig	2005-08-14 23:49:34.000000000 +0200
++++ ./debian/makefont	2005-08-14 23:50:23.000000000 +0200
+@@ -66,16 +66,16 @@
+       print
+     }
+   ' > $name.asm
+-  rm $name.old
++  rm -f $name.old
+ 
+   t1asm < $name.asm > $name.pfb
+-  rm $name.asm
++  rm -f $name.asm
+ done
+ 
+ for f in `find . -name '*.afm' -print`; do
+   echo processing $f
+   name=`basename $f .afm`
+-  mv $name.afm $name.old
++  mv -f $name.afm $name.old
+ 
+   cat $name.old | \
+   sed -e "
+@@ -83,7 +83,7 @@
+       s/B 0 0 1000 1000/B 0 -160 1000 840/
+   " > $name.afm
+ 
+-  rm $name.old
++  rm -f $name.old
+ 
+   afm2tfm $name.afm &> /dev/null
+ done

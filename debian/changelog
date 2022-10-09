@@ -1,0 +1,263 @@
+latex-cjk-japanese-wadalab (0.20050817-17.1) unstable; urgency=medium
+
+  * Non maintainer upload by the Reproducible Builds team.
+  * No source change upload to rebuild on buildd with .buildinfo files.
+
+ -- Holger Levsen <holger@debian.org>  Mon, 28 Dec 2020 01:38:33 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-17) unstable; urgency=low
+
+  [ Danai SAE-HAN (韓達耐) ]
+  * The very late "Thank you" release.
+  * Kudos to Norbert to get this package working with TL2012.
+  * Bump standards from 3.9.3 to 3.9.8.
+  * Bug fix: "[PATCH] latex-cjk-japanese-wadalab: Helping to update to
+    Copyright format 1.0", thanks to Jari Aalto <jari.aalto@cante.net>
+    (Closes: #670800).
+    - [copyright]
+       - migrate to Copyright Format 1.0;
+    - [compat]
+       - bump up the Debian compatibility to v9;
+    - [patches/]
+       - add DEP-3 headers;
+       - change to standard *.patch suffix and (-) in file names;
+    - [rules]
+       - replace deprecated dh_prep and use dh_prep.
+  * [README.source, control]
+       - Update the source file location.
+  
+  [ Norbert Preining ]
+  * fix 64bit compatibility in wftodm (Closes: #841313)
+    Thanks to Hilmar Preuße for debugging and Adrian Bunk for fixing.
+
+ -- Norbert Preining <preining@debian.org>  Thu, 27 Oct 2016 10:04:58 +0900
+
+latex-cjk-japanese-wadalab (0.20050817-16) unstable; urgency=low
+
+  * debian/control: add Danai and myself to uploaders
+  * use maintscript to remove both old updmap.d files
+  * bump build-dep to tex-common >= 3
+  * fix broken maintainer field in debian/control
+  * fix other lintian warnings
+  * bump standards to 3.9.3, no changes necessary
+  * convert to source format 3.0 (quilt):
+    . rename debian/patches/00list to debian/patches/series
+    . remove dpatch dep in debian/control
+    . add debian/source/format
+    . remove any appearance of *patch* in debian/rules
+  * debian/rules:
+    . add targets for build-arch and build-indep
+    . make a separate unpack target
+    . make sure that we break building if fonts cannot be build
+      (was shadowed by echo)
+    . some cleanup
+
+ -- Norbert Preining <preining@debian.org>  Fri, 23 Mar 2012 17:54:48 +0900
+
+latex-cjk-japanese-wadalab (0.20050817-15) unstable; urgency=low
+
+  * The "Why Twitter if you've got the Debian changelog?" release.
+  * Acknowledge the NMU.  Thanks, Norbert.
+  * [control]
+     - Add Vcs-* and Homepage tags;
+     - bump Standards-Version to 3.8.3;
+     - depend on debhelper (>= 7);
+     - add a build-dependency on tex-common (>= 1.20) to get support
+       for trigger-happy fingers;
+     - change the maintainer's email address.
+  * [compat] Bump to Debhelper v7.
+  * [rules] Debhelper v7 makes some cleaning procedures unnecessary.
+  * [watch] Remove it; the font will not get an upstream update anymore, and
+     the "mangle" option in the watch file was incorrectly configured anyway.
+  * [copyright] Add "Copyright" line and "1994" to satisfy Lintian.  The
+     year is derived from the timestamp of the copyright file on the DANTE
+     FTP site.
+  * [latex-cjk/*] Update to upstream release of 4.8.2.
+  * [install] Remove bashisms.
+  * [README.Debian-source, README.source] Renamed the file from the former name
+     into the latter to comply with Standards-Version 3.8.0.
+  * [changelog] Change the maintainer's email address.
+
+ -- Danai SAE-HAN (韓達耐) <danai@debian.org>  Mon, 24 Aug 2009 23:21:58 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-14.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * no change upload to trigger a rebuild with fixed tex-common, see bug
+    #492604, to get working postrm files
+
+ -- Norbert Preining <preining@debian.org>  Thu, 31 Jul 2008 12:36:23 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-14) unstable; urgency=low
+
+  * The "Carabosse is finally defeated" release.
+  * [control]
+     - Remove the dependency on latex-cjk-japanese (>= 4.6.0) and teTeX;
+     - don't build-depend on texlive-base-bin and tex-common (>= 0.19) anymore,
+       since texlive-font-utils already depends on them;
+     - bumped up the Standards-Version from 3.7.2.0 to 3.7.3;
+     - depend on debhelper (>= 6).
+  * [compat] Change from debhelper V5 to V6.
+  * [latex-cjk/c70*.fdx] CJK git20080115 provides improved vertical support
+     for Unicode Wadalab.
+  * [preinst] dh_installtex has moved the default priority from 10 to 20,
+     rendering the /etc/texmf/updmap.d/10latex-cjk-japanese-wadalab.cfg
+     conffile obsolete.  This script will create a backup in
+     /etc/texmf/updmap.d/ if you have manually modified the 10*.cfg file.
+     Thanks to Kumar Appaiah (Closes: #455460).
+  * [makefont] Upstream version now includes a copyright notice.
+  * [rules]
+     - Fix bashism: apparently other shells don't understand the accolade.
+       Thanks to Michele Angrisano (Closes: #457575, #457578);
+     - hopefully the FTBFS on Schepler's parallel CPU computer is fixed, now
+       that I've removed some cruft in debian/rules.  dpkg-buildpackage in
+       cowbuilder works (Closes: #458990).
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@edpnet.be>  Sat, 26 Jan 2008 09:25:45 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-13) unstable; urgency=high
+
+  * Urgency is set to high because of an FTBFS bug fix.
+  * [control]
+     - Build-Depend on "texlive-font-utils", which provides
+       "vptovf".  This fixes "FTBFS: Can't exec "vptovf": No such file
+       or directory at makeuniwada.pl line 120" (Closes: #422399).
+       Thanks to Lucas Nussbaum;
+     - change "tetex-bin" to "tetex-extra";
+     - prefer TeXlive over teTeX in the Build-Dependencies and Dependencies;
+     - minor cleanup, and add dependencies on "${misc:Depends}".
+       Thanks to Florent Rougon.
+  * [rules] add a few arguments after "dh_testdir" when cleaning, to make
+     sure we're deleting the correct directory.  Thanks to Florent Rougon
+  * [watch] clean it up, and locally force the version numbers of most
+     packages.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@edpnet.be>  Sun, 13 May 2007 18:19:09 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-12) unstable; urgency=low
+
+  * [changelog] leave out the "debian/" subdirectory name in each item.
+  * [changelog,README.Debian,README.Debian-source,patches/*.dpatch]
+     change the maintainer's email address.
+  * [patches/01_fix_wftodm.dpatchorig{,2}] removed.
+  * [watch] change version numbers into "(.*)".
+  * [rules] according to Debian Policy section 4.6, it is advised
+     to use a double ampersand instead of a semicolon because of
+     "sh"'s poor error trapping.
+  * [control]
+     Add the names of the three font flavours "Mincho", "Gothic" and "Maru".
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@edpnet.be>  Mon,  5 Feb 2007 17:34:47 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-11) unstable; urgency=low
+
+  * The "Changing email address" release.
+  * [changelog]
+     - aesthetic changes in sync with the "cjk" Debian source package;
+     - change the maintainer's email address to @edpnet.be.
+  * [control] change the maintainer's email address.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@edpnet.be>  Wed,  6 Sep 2006 06:56:24 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-10) unstable; urgency=low
+
+  * The "Thank you Frank" release.
+  * Upload sponsored by Frank Küster <frank@debian.org>.
+  * [rules] added error trapping.  Thanks to Frank Küster and
+     Norbert Preining.
+  * [control] added Build-Depend on tetex-bin (>= 3.0) | texlive-font-utils.
+     It works in pbuilder now.  Thanks to Norbert Preining.
+  * [patches/01_fix_wftodm.dpatch]
+     - change <sys/time.h> into <time.h>; otherwise it will segfault on AMD64.
+       Thanks to Masami Ichikawa <masami256@gmail.com>.
+     - add a fix to be able to use only one directory as argument instead
+       of two; this will solve the 0300 exit code when building the mc2
+       and mr2 fonts with wftodm.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Sun, 23 Jul 2006 12:46:50 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-9) unstable; urgency=low
+
+  * [copyright] mention that debian/ is released under
+     the GPL.  Thanks to Frank Küster.
+  * [rules] move most things from binary-indep to build.  Thanks
+     to Frank Küster.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Thu, 18 May 2006 23:06:59 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-8) unstable; urgency=low
+
+  * [control]
+     - Bump the Standards Version to 3.7.2.0: no changes required;
+     - Put debhelper (>=5.0.0) and dpatch (>=2.0.14) in Build-Depends
+       instead of Build-Depends-Indep.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Mon,  8 May 2006 00:13:55 +0200
+
+latex-cjk-japanese-wadalab (0.20050817-7) experimental; urgency=low
+
+  * [control] depend on tex-common (>=0.19) because of a
+     typo in dh_installtex.  Thanks to Norbert Preining.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Wed, 13 Mar 2006 14:03:45 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-6) experimental; urgency=low
+
+  * [control] depend on tex-common (>=0.18), because
+     dh_installtexfonts is now replaced by the more versatile
+     dh_installtex command.
+  * [rules] use dh_installtex from now on.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Sat, 25 Feb 2006 00:20:32 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-5) experimental; urgency=low
+
+  * [control] change architecture from "any" to "all"
+     (thanks Ming Hua).
+  * [changelog] change "unstable" into "experimental".
+  * [rules] remove a few bashisms, and clean it up somewhat.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Sat,  7 Jan 2006 00:12:04 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-4) experimental; urgency=low
+
+  * I forgot to put the virtual fonts in /usr/share/fonts/vf/wadalab.
+  * Put the Unicode encoded TFM files in
+    /usr/share/texmf/fonts/tfm/wadalab/Unicode/, and the rest of the (virtual)
+    TFM fonts in usr/share/texmf/fonts/tfm/wadalab/JIS/.
+  * Put the c70*.fd files in /usr/share/texmf/tex/latex/CJK/UTF8/ instead
+    of JIS/.
+  * Depend on tex-common (>=0.14), because dh_installtexfont has fixed
+    a bug with the dvips config.* files.
+  * Also support installation in TeXlive distribution, by depending on
+    texlive-base-bin and texlive-latex-base in that case.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Tue, 27 Dec 2005 04:21:16 +0100
+
+latex-cjk-japanese-wadalab (0.20050817-3) experimental; urgency=low
+
+  * Add debian/README.Debian-source to explain how the repackaged source
+    tarball was created.
+  * Change my emailaddress in debian/patches/.
+  * Put the Type1 fonts in /usr/share/texmf/fonts/type1.
+  * Remove "-fonts" from the SONAME.  The name is too long, and the package
+    description makes it pretty clear that it's a font package.
+  * Update the fixwada and makefont scripts from CJK4.6.0.
+  * Build-depend on debhelper (>=5.0.0) and depend on tetex-bin (>= 3.0)
+    and tetex-base (>=3.0).
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Fri,  2 Dec 2005 00:26:21 +0100
+
+latex-cjk-japanese-wadalab-fonts (0.20050817-2) experimental; urgency=low
+
+  * Add config.wadalab to dvips.  Now "dvips -P wadalab" will also work.
+  * Put the font definition files in CJK/JIS/wadalab, not in CJK/wadalab.
+
+ -- Danai SAE-HAN (韓達耐) <danai.sae-han@skynet.be>  Sun, 11 Sep 2005 15:06:35 +0200
+
+latex-cjk-japanese-wadalab-fonts (0.20050817-1) experimental; urgency=low
+
+  * Initial release
+  * Use dpatch.  w00t!
+
+ -- Danai Sae-Han (韓達耐) <danai.sae-han@skynet.be>  Sun, 14 Aug 2005 15:42:30 +0200

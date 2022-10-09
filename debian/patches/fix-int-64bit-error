@@ -1,0 +1,18 @@
+This is a 64bit problem, relevant gcc warning:
+wftodm.c:301:1: warning: type of 'i0' defaults to 'int' [-Wimplicit-int]
+i0 is the variable where the pointer to the string is passed.
+see bug #841313
+---
+ wftodm.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- latex-cjk-japanese-wadalab-0.20050817.orig/wftodm.c
++++ latex-cjk-japanese-wadalab-0.20050817/wftodm.c
+@@ -300,6 +300,7 @@
+ 
+ e_printf(form,i0,i1,i2,i3,i4,i5,i6,i7,i8,i9)
+ char *form;
++long i0;
+ {
+   int len,i;
+   unsigned char buf[4096];

@@ -1,0 +1,13 @@
+build/d*.pfb usr/share/texmf/fonts/type1/wadalab/JIS/
+build/m*.pfb usr/share/texmf/fonts/type1/wadalab/JIS/
+build/u*.tfm usr/share/texmf/fonts/tfm/wadalab/Unicode/
+build/d*.tfm usr/share/texmf/fonts/tfm/wadalab/JIS/
+build/m*.tfm usr/share/texmf/fonts/tfm/wadalab/JIS/
+build/u*.vf usr/share/texmf/fonts/vf/wadalab/Unicode/
+debian/wadalab.map usr/share/texmf/fonts/map/dvips/wadalab/
+debian/latex-cjk/c42*.fd usr/share/texmf/tex/latex/CJK/JIS/
+debian/latex-cjk/c42*.fdx usr/share/texmf/tex/latex/CJK/JIS/
+debian/latex-cjk/c52*.fd usr/share/texmf/tex/latex/CJK/JIS/
+debian/latex-cjk/c52*.fdx usr/share/texmf/tex/latex/CJK/JIS/
+debian/latex-cjk/c70*.fd usr/share/texmf/tex/latex/CJK/UTF8/
+debian/latex-cjk/c70*.fdx usr/share/texmf/tex/latex/CJK/UTF8/

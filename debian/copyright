@@ -1,0 +1,67 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0
+Upstream-Name: latex-cjk-japanese-wadalab
+Upstream-Contact: Tetsuro TANAKA <ktanaka@tanaka.ecc.u-tokyo.ac.jp>
+Source: None
+X-Upstream-Comment:
+  2012-04-29 Upstream URL no longer exists at
+  ftp://ftp.dante.de/pub/tex/support/ghostscript/3rdparty/fonts/kanji/
+ 
+Files: *
+Copyright: 1994, Tetsuro TANAKA <ktanaka@tanaka.ecc.u-tokyo.ac.jp>
+License: Custom
+
+Files: build/*.pl
+Copyright: 1994-2008, Werner Lemberg <wl@gnu.org>
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2012, Norbert Preining <preining@debian.org>
+           2012, Jari Aalto <jari.aalto@cante.net>
+           2005-2012, Danai Sae-Han (韓達耐) <danai@debian.org>
+License: GPL-2+
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License can be found in "/usr/share/common-licenses/GPL-2".
+ 
+License: Custom
+  [copied from Taketoshi Sano <sano@debian.org>'s gsfonts-wadalab-minchoa
+  Debian package]
+  .
+   (official text is written in Japanese. This is a rough
+    translation by Danai Sae-Han. For detail evaluation, please read
+    <ftp://ftp.dante.de/pub/tex/support/ghostscript/3rdparty/fonts/kanji/README.nihongo>.
+    I've contacted the upstream maintainer and he replied that
+    the License in Japanese is applicable world-wide.)
+  .
+   ---
+  .
+  You can use/modify/distribute this font as long as:
+  .
+    1) add a note which explains that the distributed fonts
+       are derived from wadalab fonts which is distributed
+       at ftp.ipl.t.u-tokyo.ac.jp
+  .
+    2) if the redistribution is the modified one from the original
+       font archives, then provide some documentations which explain
+       the changes/modifications from the original font archives.
+  .
+  These conditions are to inform users about where they
+  can get the most updated font from, because we plan
+  to update it.
+  .
+  If you find the badly designed glyphs, or wrong kanji
+  characters, please contact at tanaka@ipl.t.u-tokyo.ac.jp

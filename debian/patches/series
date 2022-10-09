@@ -1,0 +1,4 @@
+01-fix-wftodm.patch
+#02-automate-makefont.patch
+#03-automate-fixwada.patch
+fix-int-64bit-error
